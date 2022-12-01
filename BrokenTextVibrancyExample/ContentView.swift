@@ -8,26 +8,33 @@
 import SwiftUI
 
 struct ContentView: View {
+    @Environment(\.colorScheme) var colorScheme
     @State var showPopover = false
     
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Button {
-                showPopover.toggle()
-            } label: {
-                Text("Hello, world!")
+        ZStack {
+            VStack {
+                Image(systemName: "globe")
+                    .imageScale(.large)
+                    .foregroundColor(.accentColor)
+                Button {
+                    showPopover.toggle()
+                } label: {
+                    Text("Hello, world!")
+                }
+                .buttonStyle(.plain)
             }
-            .buttonStyle(.plain)
+            .padding()
+            .background(colorScheme == .dark ? Color.black : Color.white)
+            .popover(isPresented: $showPopover, arrowEdge: .bottom) {
+                Text("Broken Text Vibrancy")
+                    .foregroundColor(.secondary)
+                    .padding()
+            }
         }
-        .padding()
-        .popover(isPresented: $showPopover, arrowEdge: .bottom) {
-            Text("Broken Text Vibrancy")
-                .foregroundColor(.secondary)
-                .padding()
-        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(colorScheme == .dark ? Color.white : Color.black)
+        
     }
 }
 
